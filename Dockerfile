@@ -1,8 +1,9 @@
-FROM ubuntu:xenial
+FROM alpine
 
-RUN apt-get update && \
-    apt-get install -y python-pip
+ENV VERSION 2.8.1
 
-RUN pip install shadowsocks==2.8.2
+RUN set -ex \
+    && apk -U add libsodium py-pip \
+    && pip install shadowsocks==${VERSION}
 
-ENTRYPOINT ["/usr/local/bin/ssserver"]
+ENTRYPOINT ["/usr/bin/ssserver"]
